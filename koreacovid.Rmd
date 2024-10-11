@@ -27,7 +27,15 @@ state of a patient must be died or alive - we adjust that as well
   
 # Your Question - Is dying independent of sex?
 
+#Method
 
+Result- Categorical
+
+Sex- Categorical
+
+Since they are both categorical I will be using the cat~cat helper file
+$H_0$ Dying is independent of sex.
+$H_A$ Dying is dependent of sex.
 
 
 
@@ -37,19 +45,38 @@ state of a patient must be died or alive - we adjust that as well
 
 
   
+```{r}
+barchartGC(~result + Sex,data=kRdata,)
+barchartGC(~result + Sex,data=kRdata, type="percent")
 
-
+```
+The bar chart shows that men die at a higher rate compared to women.
 
 
 
   
 ## Numerical results
 
+```{r}
+table1 <- xtabs(~result + Sex, data=kRdata)
+rowPerc(table1)
+colPerc(table1)
+```
+Among the people who died there were 64% of men who died and 36% of women who died.
 
 ## Inferential results 
 
+```{r}
+chisq.test(table1)
+chisqtestGC(table1)
+fisher.test(table1)
+```
 
+The chi square test shows that the pvalue was 0.001 so we reject the null hypothesis, we conclude that dying is dependent to gender because the plots and tables show that men is higher rate to dying than women. Therefore men are 2.3 times more likely to die from covid in Korea than women in Korea.
 
 
 ## Conclusions
+
+The original question was if dying was dependent or independent on sex. The data we got was from Korea in 2022, In the fisher test it shows men are 2.3 times more likely to die from covid in Korea than women in Korea. The pvalue in the chi squared test was 0.001 so we reject the null hypothesis, we conclude that dying is dependent to gender because the plots and tables show that men is higher rate to dying than women.
+
 
